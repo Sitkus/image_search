@@ -1,5 +1,5 @@
 import useStyles from './Header.style';
-import { SearchField, Button } from '../common';
+import { SearchField, Button } from '../helpers';
 
 function Header() {
   const classes = useStyles();
@@ -10,7 +10,7 @@ function Header() {
 
   return (
     <header className={classes.header}>
-      <SearchField type="text" name="search" placeholder="Search keyword" />
+      <SearchField type="text" name="search" placeholder="Search for images" />
       <Button onClick={onClick}>Search</Button>
     </header>
   );

@@ -1,12 +1,14 @@
 import useStyles from './Header.style';
+import { SearchField, Button } from '../common';
 
 function Header() {
   const classes = useStyles();
 
   return (
-    <div className={classes.test}>
-      <h1>Header here</h1>
-    </div>
+    <header className={classes.header}>
+      <SearchField type="text" name="search" placeholder="Search keyword" />
+      <Button>Search</Button>
+    </header>
   );
 }
 

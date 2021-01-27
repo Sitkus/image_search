@@ -1,13 +1,15 @@
 import useStyles from './SearchField.style';
 
-function SearchField() {
+interface Props {
+  type: string;
+  name?: string;
+  placeholder?: string;
+}
+
+function SearchField({ type = 'text', name, placeholder }: Props) {
   const classes = useStyles();
 
-  return (
-    <div className={classes.test}>
-      <h1>Search field</h1>
-    </div>
-  );
+  return <input className={classes.input} type={type} name={name} placeholder={placeholder} />;
 }
 
 export default SearchField;

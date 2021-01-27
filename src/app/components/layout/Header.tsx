@@ -5,7 +5,7 @@ import { SearchField, Button } from '../helpers';
 
 function Header() {
   const classes = useStyles();
-  const { authKey, isLoading, setIsLoading, photos, setPhotos, url, setUrl } = usePhotos();
+  const { authKey, setIsLoading, setPhotos, url } = usePhotos();
   const [inputIsEmpty, setInputIsEmpty] = useState(false);
   const [inputData, setInputData] = useState('');
 
@@ -45,7 +45,6 @@ function Header() {
       setPhotos(fetchedPhotos);
     }
 
-    console.log(fetchedPhotos);
     setIsLoading(false);
   };
 

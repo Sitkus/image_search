@@ -12,7 +12,7 @@ interface PhotoProps {
 
 function ImagesList() {
   const classes = useStyles();
-  const { authKey, isLoading, setIsLoading, photos, setPhotos, url, setUrl } = usePhotos();
+  const { isLoading, photos } = usePhotos();
 
   return (
     <section className={classes.images}>

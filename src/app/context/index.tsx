@@ -16,8 +16,8 @@ interface PhotosContextProps {
 
 const PhotosContext = createContext<PhotosContextProps>({
   authKey: '',
-  isLoading: false,
-  setIsLoading: false,
+  isLoading: true,
+  setIsLoading: true,
   url: '',
   setUrl: '',
   photos: [],

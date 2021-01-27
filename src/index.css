@@ -34,3 +34,27 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+/*------------------------------------*\
+  #Keyframes
+\*------------------------------------*/
+
+@keyframes loading {
+  0% {
+    background-color: #1873af;
+    transform: rotate(0deg);
+    border-radius: 0;
+  }
+
+  50% {
+    background-color: #eb403c;
+    transform: rotate(90deg);
+    border-radius: 50%;
+  }
+
+  100% {
+    background-color: #1873af;
+    transform: rotate(180deg);
+    border-radius: 0;
+  }
+}

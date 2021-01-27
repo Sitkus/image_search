@@ -11,20 +11,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     objectFit: 'cover',
     height: '300px',
     width: '100%'
-  },
-  boxHidden: {
-    display: 'flex',
-    alignItems: 'center',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    padding: '30px',
-    backgroundColor: 'rgba(244, 244, 244, 0.8)',
-    width: '100%'
-  },
-  boxDescription: {
-    fontSize: '16px',
-    fontWeight: 500
   }
 }));
 

@@ -8,30 +8,30 @@ interface PhotosContextProps {
   authKey: string;
   isLoading: boolean;
   setIsLoading: any;
-  photos: any;
-  setPhotos: any;
   url: string;
   setUrl: any;
+  photos: any;
+  setPhotos: any;
 }
 
 const PhotosContext = createContext<PhotosContextProps>({
   authKey: '',
   isLoading: false,
   setIsLoading: false,
-  photos: [],
-  setPhotos: [],
   url: '',
-  setUrl: ''
+  setUrl: '',
+  photos: [],
+  setPhotos: []
 });
 
 function PhotosProvider({ children }: PhotosProviderProps) {
   const [authKey] = useState('hvzPv9AzWm0mairp-LGBDydxJpGstEadNlUIH8sfxxo');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [url, setUrl] = useState('https://api.unsplash.com/photos/random?count=30');
   const [photos, setPhotos] = useState([]);
-  const [url, setUrl] = useState('');
 
   return (
-    <PhotosContext.Provider value={{ authKey, isLoading, setIsLoading, photos, setPhotos, url, setUrl }}>
+    <PhotosContext.Provider value={{ authKey, isLoading, setIsLoading, url, setUrl, photos, setPhotos }}>
       {children}
     </PhotosContext.Provider>
   );

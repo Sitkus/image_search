@@ -1,36 +1,26 @@
+import { usePhotos } from '../../context';
 import useStyles from './ImagesList.style';
 import ImageBox from './ImageBox';
 
+interface PhotoProps {
+  id: number;
+  urls: {
+    small: string;
+  };
+  alt_description: string;
+}
+
 function ImagesList() {
   const classes = useStyles();
+  const { authKey, isLoading, setIsLoading, photos, setPhotos, url, setUrl } = usePhotos();
 
   return (
     <section className={classes.images}>
-      <ImageBox
-        imgSrc="https://images.unsplash.com/photo-1417325384643-aac51acc9e5d?q=75&fm=jpg&w=400&fit=max"
-        imgAlt="Text"
-        imgDescription="Description here"
-      />
-      <ImageBox
-        imgSrc="https://images.unsplash.com/photo-1417325384643-aac51acc9e5d?q=75&fm=jpg&w=400&fit=max"
-        imgAlt="Text"
-        imgDescription="Description here"
-      />
-      <ImageBox
-        imgSrc="https://images.unsplash.com/photo-1417325384643-aac51acc9e5d?q=75&fm=jpg&w=400&fit=max"
-        imgAlt="Text"
-        imgDescription="Description here"
-      />
-      <ImageBox
-        imgSrc="https://images.unsplash.com/photo-1417325384643-aac51acc9e5d?q=75&fm=jpg&w=400&fit=max"
-        imgAlt="Text"
-        imgDescription="Description here"
-      />
-      <ImageBox
-        imgSrc="https://images.unsplash.com/photo-1417325384643-aac51acc9e5d?q=75&fm=jpg&w=400&fit=max"
-        imgAlt="Text"
-        imgDescription="Description here"
-      />
+      {!isLoading || photos
+        ? photos.map((photo: PhotoProps) => (
+            <ImageBox key={photo.id} imgSrc={photo.urls.small} imgAlt={photo.alt_description} />
+          ))
+        : null}
     </section>
   );
 }

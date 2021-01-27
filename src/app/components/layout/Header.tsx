@@ -1,4 +1,4 @@
-import { FormEvent, ChangeEvent, useState } from 'react';
+import { FormEvent, ChangeEvent, useState, useEffect } from 'react';
 import { usePhotos } from '../../context';
 import useStyles from './Header.style';
 import { SearchField, Button } from '../helpers';
@@ -9,6 +9,10 @@ function Header() {
   const [inputIsEmpty, setInputIsEmpty] = useState(false);
   const [inputData, setInputData] = useState('');
 
+  useEffect(() => {
+    fetchPhotos(url);
+  }, []);
+
   const collectInputData = (e: ChangeEvent<HTMLInputElement>) => {
     setInputData(e.target.value);
   };
@@ -17,18 +21,32 @@ function Header() {
     e.preventDefault();
 
     if (inputData) {
-      fetchPhotos();
+      setIsLoading(true);
+      fetchPhotos(`https://api.unsplash.com/search/photos?query=${inputData}&per_page=30`);
     } else {
       showError();
-
-      setTimeout(() => {
-        removeError();
-      }, 2000);
     }
   };
 
-  const fetchPhotos = () => {
-    console.log(authKey, isLoading, photos, url);
+  const fetchPhotos = async (newUrl: string) => {
+    removeError();
+
+    const response = await fetch(newUrl, {
+      method: 'GET',
+      headers: {
+        Authorization: `Client-ID ${authKey}`
+      }
+    });
+    const fetchedPhotos = await response.json();
+
+    if (fetchedPhotos.results) {
+      setPhotos(fetchedPhotos.results);
+    } else {
+      setPhotos(fetchedPhotos);
+    }
+
+    console.log(fetchedPhotos);
+    setIsLoading(false);
   };
 
   const showError = () => {
@@ -45,7 +63,7 @@ function Header() {
         <SearchField collectInputData={collectInputData} type="text" name="search" placeholder="Search for images" />
         <Button btnType="submit">Search</Button>
       </form>
-      {inputIsEmpty ? <p className={classes.error}>Please type in keyword to search for.</p> : null}
+      {inputIsEmpty ? <p className={classes.error}>Please fill in the search input field</p> : null}
     </header>
   );
 }

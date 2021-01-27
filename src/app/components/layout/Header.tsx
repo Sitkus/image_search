@@ -4,10 +4,14 @@ import { SearchField, Button } from '../common';
 function Header() {
   const classes = useStyles();
 
+  const onClick = () => {
+    console.log('Works');
+  };
+
   return (
     <header className={classes.header}>
       <SearchField type="text" name="search" placeholder="Search keyword" />
-      <Button>Search</Button>
+      <Button onClick={onClick}>Search</Button>
     </header>
   );
 }

@@ -4,9 +4,9 @@ function Main() {
   const classes = useStyles();
 
   return (
-    <div className={classes.test}>
+    <main className={classes.main}>
       <h1>Main here</h1>
-    </div>
+    </main>
   );
 }
 

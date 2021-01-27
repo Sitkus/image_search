@@ -1,8 +1,8 @@
 import { makeStyles, Theme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) => ({
-  test: {
-    //
+  main: {
+    minHeight: 'calc(100vh - 200px)'
   }
 }));
 

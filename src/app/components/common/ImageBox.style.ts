@@ -2,18 +2,15 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) => ({
   box: {
-    flex: '0 0 300px',
     overflow: 'hidden',
     position: 'relative',
     margin: '20px 25px'
-    //
   },
   boxImage: {
     display: 'block',
     objectFit: 'cover',
     height: '300px',
-    width: '300px'
-    //
+    width: '100%'
   },
   boxHidden: {
     display: 'flex',
@@ -28,7 +25,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   boxDescription: {
     fontSize: '16px',
     fontWeight: 500
-    //
   }
 }));
 

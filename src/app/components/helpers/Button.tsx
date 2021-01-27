@@ -3,14 +3,14 @@ import useStyles from './Button.style';
 
 interface Props {
   children: ReactNode;
-  onClick: () => void;
+  btnType: 'button' | 'submit' | 'reset' | undefined;
 }
 
-function Button({ children, onClick }: Props) {
+function Button({ children, btnType = 'button' }: Props) {
   const classes = useStyles();
 
   return (
-    <button onClick={onClick} className={classes.button}>
+    <button type={btnType} className={classes.button}>
       {children}
     </button>
   );

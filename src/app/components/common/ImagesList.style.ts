@@ -1,11 +1,10 @@
 import { makeStyles, Theme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) => ({
-  main: {
+  images: {
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minHeight: 'calc(100vh - 200px)'
+    flexWrap: 'wrap',
+    justifyContent: 'center'
   }
 }));
 

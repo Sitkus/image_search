@@ -1,6 +1,6 @@
 # Simple Image Search App
 
-This project was part of job interview task.
+This project was part of a given task.
 
 ## Project goals
 

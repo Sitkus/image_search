@@ -4,10 +4,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   main: {
     position: 'relative',
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     minHeight: 'calc(100vh - 200px)',
-    margin: '30px 0'
+    margin: '50px 0 0'
   },
   spinBox: {
     position: 'relative',
@@ -21,6 +22,41 @@ const useStyles = makeStyles((theme: Theme) => ({
       content: '""',
       display: 'block',
       paddingTop: '100%'
+    }
+  },
+  keywords: {
+    position: 'absolute',
+    top: '-60px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    display: 'flex',
+    // flexWrap: 'wrap',
+    justifyContent: 'center',
+    width: '100%'
+  },
+  keyword: {
+    position: 'relative',
+    boxShadow: `inset 0 0 0 3px ${theme.palette.secondary.main}`,
+    margin: '5px',
+    borderRadius: '20px',
+    padding: '10px',
+    fontSize: '14px',
+    '&:hover': {
+      backgroundColor: 'white',
+      color: 'black'
+    }
+  },
+  removeKeyword: {
+    position: 'absolute',
+    top: '-7px',
+    right: '-7px',
+    background: 'none',
+    color: '#ed4337',
+    transition: '150ms all ease-in-out',
+    '&:hover': {
+      background: 'none',
+      color: theme.palette.primary.main,
+      transition: '150ms all ease-in-out'
     }
   }
 }));

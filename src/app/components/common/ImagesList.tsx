@@ -4,6 +4,7 @@ import ImageBox from './ImageBox';
 
 function ImagesList() {
   const classes = useStyles();
+
   const { isLoading, photos } = usePhotos();
 
   return (

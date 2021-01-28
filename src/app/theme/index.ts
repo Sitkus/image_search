@@ -10,9 +10,6 @@ const theme = createMuiTheme({
     secondary: {
       main: '#ffd710'
     }
-  },
-  typography: {
-    fontFamily: 'Montserrat, sans-serif'
   }
 });
 

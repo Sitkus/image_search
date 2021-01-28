@@ -8,7 +8,7 @@ interface Props {
   collectInputData?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-function SearchField({ type = 'text', name, placeholder, collectInputData }: Props) {
+function SearchField({ type, name, placeholder, collectInputData }: Props) {
   const classes = useStyles();
 
   return (

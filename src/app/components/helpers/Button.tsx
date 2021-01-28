@@ -1,18 +1,18 @@
-import { ReactNode } from 'react';
+import { ReactNode, MouseEvent } from 'react';
 import useStyles from './Button.style';
 
 interface Props {
   children: ReactNode;
-  className?: string;
   btnType: 'button' | 'submit' | 'reset' | undefined;
-  eventFunction?: () => void;
+  className?: string;
+  clickEvent?: () => void;
 }
 
-function Button({ children, className, btnType = 'button', eventFunction }: Props) {
+function Button({ children, btnType, className, clickEvent }: Props) {
   const classes = useStyles();
 
   return (
-    <button onClick={eventFunction} type={btnType} className={`${classes.button} ${className}`}>
+    <button onClick={clickEvent} type={btnType} className={`${classes.button} ${className}`}>
       {children}
     </button>
   );

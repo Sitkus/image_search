@@ -1,4 +1,4 @@
-import { ReactNode, useState, useContext, createContext } from 'react';
+import { Dispatch, SetStateAction, ReactNode, useState, useContext, createContext } from 'react';
 
 type PhotosProviderProps = {
   children: ReactNode;
@@ -7,28 +7,28 @@ type PhotosProviderProps = {
 interface PhotosContextProps {
   authKey: string;
   isLoading: boolean;
-  setIsLoading: any;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
   url: string;
-  setUrl: any;
-  photos: any;
-  setPhotos: any;
+  setUrl: Dispatch<SetStateAction<string>>;
+  photos: object[];
+  setPhotos: Dispatch<SetStateAction<object[]>>;
 }
 
 const PhotosContext = createContext<PhotosContextProps>({
   authKey: 'hvzPv9AzWm0mairp-LGBDydxJpGstEadNlUIH8sfxxo',
   isLoading: true,
-  setIsLoading: true,
+  setIsLoading: () => {},
   url: 'https://api.unsplash.com/photos/random?count=30',
-  setUrl: '',
+  setUrl: () => '',
   photos: [],
-  setPhotos: []
+  setPhotos: () => []
 });
 
 function PhotosProvider({ children }: PhotosProviderProps) {
   const [authKey] = useState('hvzPv9AzWm0mairp-LGBDydxJpGstEadNlUIH8sfxxo');
   const [isLoading, setIsLoading] = useState(true);
   const [url, setUrl] = useState('https://api.unsplash.com/photos/random?count=30');
-  const [photos, setPhotos] = useState([]);
+  const [photos, setPhotos] = useState<object[]>([]);
 
   return (
     <PhotosContext.Provider value={{ authKey, isLoading, setIsLoading, url, setUrl, photos, setPhotos }}>

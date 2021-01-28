@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   spinBox: {
     position: 'relative',
     width: '10%',
-    backgroundColor: '#1873af',
+    backgroundColor: theme.palette.secondary.main,
     animationName: 'loading',
     animationIterationCount: 'infinite',
     animationDuration: '1s',

@@ -15,10 +15,10 @@ interface PhotosContextProps {
 }
 
 const PhotosContext = createContext<PhotosContextProps>({
-  authKey: '',
+  authKey: 'hvzPv9AzWm0mairp-LGBDydxJpGstEadNlUIH8sfxxo',
   isLoading: true,
   setIsLoading: true,
-  url: '',
+  url: 'https://api.unsplash.com/photos/random?count=30',
   setUrl: '',
   photos: [],
   setPhotos: []

@@ -10,7 +10,7 @@ Build a simple single page application using [unsplash.com](www.unsplash.com) AP
 
 Main requirements were to use React and build Search input with which a user could fetch new photos using keywords, minor things like loading and error indicator included.
 
-There were many bonus (optional) things to choose from. I chose to complete this task using React, TypeScript, Material-UI (styles), Redux and JEST testing.
+There were many bonus (optional) things to choose from. I chose to complete this task using React, TypeScript, Material-UI (styles), Context and JEST testing.
 
 ## Available Scripts
 

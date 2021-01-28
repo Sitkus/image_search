@@ -1,21 +1,21 @@
-import { ReactNode, useState, useContext, createContext } from 'react';
+import { Dispatch, SetStateAction, ReactNode, useState, useContext, createContext } from 'react';
 
 type KeywordsProviderProps = {
   children: ReactNode;
 };
 
 interface KeywordsContextProps {
-  savedKeywords: any;
-  setSavedKeywords: any;
+  savedKeywords: string[];
+  setSavedKeywords: Dispatch<SetStateAction<string[]>>;
 }
 
 const KeywordsContext = createContext<KeywordsContextProps>({
   savedKeywords: [],
-  setSavedKeywords: []
+  setSavedKeywords: () => []
 });
 
 function KeywordsProvider({ children }: KeywordsProviderProps) {
-  const [savedKeywords, setSavedKeywords] = useState([]);
+  const [savedKeywords, setSavedKeywords] = useState<string[]>([]);
 
   return <KeywordsContext.Provider value={{ savedKeywords, setSavedKeywords }}>{children}</KeywordsContext.Provider>;
 }

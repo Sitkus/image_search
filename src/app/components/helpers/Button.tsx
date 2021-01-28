@@ -3,14 +3,16 @@ import useStyles from './Button.style';
 
 interface Props {
   children: ReactNode;
+  className?: string;
   btnType: 'button' | 'submit' | 'reset' | undefined;
+  eventFunction?: () => void;
 }
 
-function Button({ children, btnType = 'button' }: Props) {
+function Button({ children, className, btnType = 'button', eventFunction }: Props) {
   const classes = useStyles();
 
   return (
-    <button type={btnType} className={classes.button}>
+    <button onClick={eventFunction} type={btnType} className={`${classes.button} ${className}`}>
       {children}
     </button>
   );

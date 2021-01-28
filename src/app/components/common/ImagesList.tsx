@@ -2,14 +2,6 @@ import { usePhotos } from '../../context';
 import useStyles from './ImagesList.style';
 import ImageBox from './ImageBox';
 
-interface PhotoProps {
-  id: number;
-  urls: {
-    small: string;
-  };
-  alt_description: string;
-}
-
 function ImagesList() {
   const classes = useStyles();
   const { isLoading, photos } = usePhotos();
@@ -17,7 +9,7 @@ function ImagesList() {
   return (
     <section className={classes.images}>
       {!isLoading || photos
-        ? photos.map((photo: PhotoProps) => (
+        ? photos.map((photo: any) => (
             <ImageBox key={photo.id} imgSrc={photo.urls.small} imgAlt={photo.alt_description} />
           ))
         : null}

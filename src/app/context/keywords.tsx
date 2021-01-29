@@ -23,14 +23,15 @@ const KeywordsContext = createContext<KeywordsContextProps>({
 
 function KeywordsProvider({ children }: KeywordsProviderProps) {
   const { setUrl } = usePhotos();
-  const { showError } = useError();
+  const { showError, removeError } = useError();
   const { setInputData } = useSearch();
 
   const [savedKeywords, setSavedKeywords] = useState<string[]>([]);
 
   const saveKeyword = (keyword: string) => {
     const keywordAlreadyExists = savedKeywords.indexOf(keyword);
-    console.log(keywordAlreadyExists);
+
+    removeError();
 
     if (keywordAlreadyExists === -1) {
       const newSavedKeywords = [...savedKeywords, keyword];
@@ -43,6 +44,7 @@ function KeywordsProvider({ children }: KeywordsProviderProps) {
   };
 
   const searchByKeyword = (keyword: string) => {
+    removeError();
     setInputData(keyword);
 
     setUrl(`https://api.unsplash.com/search/photos?query=${keyword}&per_page=30`);
@@ -50,6 +52,8 @@ function KeywordsProvider({ children }: KeywordsProviderProps) {
 
   const removeKeyword = (keyword: string) => {
     const removedKeyword = savedKeywords.filter(item => item !== keyword);
+
+    removeError();
 
     saveKeywordToLocalStorage(removedKeyword);
     setSavedKeywords(removedKeyword);

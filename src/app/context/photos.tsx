@@ -36,8 +36,6 @@ function PhotosProvider({ children }: PhotosProviderProps) {
   const [photos, setPhotos] = useState<object[]>([]);
 
   const fetchPhotos = async (newUrl: string) => {
-    removeError();
-
     const response = await fetch(newUrl, {
       method: 'GET',
       headers: {
@@ -45,6 +43,8 @@ function PhotosProvider({ children }: PhotosProviderProps) {
       }
     });
     const fetchedPhotos = await response.json();
+
+    removeError();
 
     if (fetchedPhotos.results) {
       setPhotos(fetchedPhotos.results);

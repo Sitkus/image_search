@@ -1,18 +1,26 @@
-// import { useState } from 'react';
+import { useKeywords } from './context';
+import useStyles from './App.style';
+
+import { KeywordPill } from './components/common';
 import { Header, Main, Footer } from './components/layout';
 
 function App() {
-  // const [inputIsEmpty, setInputIsEmpty] = useState(false);
-  // const [inputData, setInputData] = useState('');
-  // const [errorMessage, setErrorMessage] = useState('Please fill in the search input field');
+  const classes = useStyles();
 
-  // const saveKeywordToLocalStorage = (updatedKeywords: string[]) => {
-  //   localStorage.setItem('keywords', JSON.stringify(updatedKeywords));
-  // };
+  const { savedKeywords } = useKeywords();
 
   return (
     <>
       <Header />
+
+      {savedKeywords ? (
+        <article className={classes.keywords}>
+          {savedKeywords.map(keyword => (
+            <KeywordPill key={keyword} keyword={keyword} />
+          ))}
+        </article>
+      ) : null}
+
       <Main />
       <Footer />
     </>

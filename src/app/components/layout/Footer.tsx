@@ -2,6 +2,7 @@ import useStyles from './Footer.style';
 
 function Footer() {
   const classes = useStyles();
+
   const date = new Date();
   const currentYear = date.getFullYear();
 

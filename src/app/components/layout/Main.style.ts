@@ -60,6 +60,18 @@ const useStyles = makeStyles((theme: Theme) => ({
       color: theme.palette.primary.main,
       transition: '150ms all ease-in-out'
     }
+  },
+  error: {
+    width: '100%',
+    textAlign: 'center',
+    position: 'fixed',
+    bottom: 0,
+    left: '50%',
+    transform: 'translateX(-50%)',
+    backgroundColor: '#ed4337',
+    color: 'white',
+    padding: '10px 0',
+    zIndex: 10
   }
 }));
 

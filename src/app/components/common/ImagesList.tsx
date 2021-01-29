@@ -1,5 +1,6 @@
 import { usePhotos } from '../../context';
 import useStyles from './ImagesList.style';
+
 import ImageBox from './ImageBox';
 
 function ImagesList() {

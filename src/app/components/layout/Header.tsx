@@ -1,32 +1,16 @@
-import { FormEvent, ChangeEvent, useEffect, SetStateAction, Dispatch } from 'react';
-import { usePhotos, useKeywords } from '../../context';
+import { FormEvent, ChangeEvent, useEffect } from 'react';
+import { usePhotos, useKeywords, useSearch, useError } from '../../context';
 
 import useStyles from './Header.style';
 import { SearchField, Button } from '../helpers';
 
-interface Props {
-  inputIsEmpty: boolean;
-  setInputIsEmpty: Dispatch<SetStateAction<boolean>>;
-  inputData: string;
-  setInputData: Dispatch<SetStateAction<string>>;
-  errorMessage: string;
-  setErrorMessage: Dispatch<SetStateAction<string>>;
-  saveKeywordToLocalStorage: (updatedKeywords: string[]) => void;
-}
-
-function Header({
-  inputIsEmpty,
-  setInputIsEmpty,
-  inputData,
-  setInputData,
-  errorMessage,
-  setErrorMessage,
-  saveKeywordToLocalStorage
-}: Props) {
+function Header() {
   const classes = useStyles();
 
-  const { authKey, setIsLoading, setPhotos, url, setUrl } = usePhotos();
-  const { savedKeywords, setSavedKeywords } = useKeywords();
+  const { inputData, setInputData } = useSearch();
+  const { showError, removeError } = useError();
+  const { setIsLoading, url, setUrl, fetchPhotos } = usePhotos();
+  const { savedKeywords, setSavedKeywords, saveKeyword } = useKeywords();
 
   const keywordsMaxLimit = 5;
   const inputMaxLength = 15;
@@ -67,58 +51,16 @@ function Header({
     }
   };
 
-  const saveKeyword = (keyword: string) => {
-    const keywordAlreadyExists = savedKeywords.indexOf(keyword);
-
-    if (keywordAlreadyExists === -1) {
-      const newSavedKeywords = [...savedKeywords, keyword];
-
-      saveKeywordToLocalStorage(newSavedKeywords);
-      setSavedKeywords(newSavedKeywords);
-    } else {
-      showError(`You have already saved keyword: ${keyword}`);
-    }
-  };
-
   const checkIfInputIsNotEmpty = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
     const keyword = inputData.trim();
 
     if (keyword) {
       setUrl(`https://api.unsplash.com/search/photos?query=${keyword}&per_page=30`);
     } else {
-      showError();
-    }
-  };
-
-  const fetchPhotos = async (newUrl: string) => {
-    removeError();
-
-    const response = await fetch(newUrl, {
-      method: 'GET',
-      headers: {
-        Authorization: `Client-ID ${authKey}`
-      }
-    });
-    const fetchedPhotos = await response.json();
-
-    if (fetchedPhotos.results) {
-      setPhotos(fetchedPhotos.results);
-    } else {
-      setPhotos(fetchedPhotos);
+      showError('You entered an empty search term, please fix it');
     }
 
-    setIsLoading(false);
-  };
-
-  const showError = (msg: string = 'Please fill in the search input field') => {
-    setErrorMessage(msg);
-
-    setInputIsEmpty(true);
-  };
-
-  const removeError = () => {
-    setInputIsEmpty(false);
+    e.preventDefault();
   };
 
   return (
@@ -138,7 +80,6 @@ function Header({
           </Button>
         ) : null}
       </form>
-      {inputIsEmpty ? <p className={classes.error}>{errorMessage}</p> : null}
     </header>
   );
 }

@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, ReactNode, useState, useContext, createContext } from 'react';
+import { useError } from './';
 
 type PhotosProviderProps = {
   children: ReactNode;
@@ -12,6 +13,7 @@ interface PhotosContextProps {
   setUrl: Dispatch<SetStateAction<string>>;
   photos: object[];
   setPhotos: Dispatch<SetStateAction<object[]>>;
+  fetchPhotos: (newUrl: string) => void;
 }
 
 const PhotosContext = createContext<PhotosContextProps>({
@@ -21,17 +23,40 @@ const PhotosContext = createContext<PhotosContextProps>({
   url: 'https://api.unsplash.com/photos/random?count=30',
   setUrl: () => '',
   photos: [],
-  setPhotos: () => []
+  setPhotos: () => [],
+  fetchPhotos: () => {}
 });
 
 function PhotosProvider({ children }: PhotosProviderProps) {
+  const { removeError } = useError();
+
   const [authKey] = useState('hvzPv9AzWm0mairp-LGBDydxJpGstEadNlUIH8sfxxo');
   const [isLoading, setIsLoading] = useState(true);
   const [url, setUrl] = useState('https://api.unsplash.com/photos/random?count=30');
   const [photos, setPhotos] = useState<object[]>([]);
 
+  const fetchPhotos = async (newUrl: string) => {
+    removeError();
+
+    const response = await fetch(newUrl, {
+      method: 'GET',
+      headers: {
+        Authorization: `Client-ID ${authKey}`
+      }
+    });
+    const fetchedPhotos = await response.json();
+
+    if (fetchedPhotos.results) {
+      setPhotos(fetchedPhotos.results);
+    } else {
+      setPhotos(fetchedPhotos);
+    }
+
+    setIsLoading(false);
+  };
+
   return (
-    <PhotosContext.Provider value={{ authKey, isLoading, setIsLoading, url, setUrl, photos, setPhotos }}>
+    <PhotosContext.Provider value={{ authKey, isLoading, setIsLoading, url, setUrl, photos, setPhotos, fetchPhotos }}>
       {children}
     </PhotosContext.Provider>
   );

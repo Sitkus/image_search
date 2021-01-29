@@ -2,6 +2,8 @@
 
 This project was part of a given task.
 
+You can check live project here: [netlify](https://netlify-image-search-react.netlify.app/)
+
 ## Project goals
 
 Build a simple single page application using [unsplash.com](www.unsplash.com) API.

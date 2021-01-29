@@ -35,19 +35,21 @@ function Main({ setInputData, saveKeywordToLocalStorage }: Props) {
       {savedKeywords ? (
         <article className={classes.keywords}>
           {savedKeywords.map(keyword => (
-            <Button
-              clickEvent={() => searchByKeyword(keyword)}
-              key={keyword}
-              btnType="button"
-              className={classes.keyword}
-            >
-              {keyword}
+            <div className={classes.keywordContainer} key={keyword}>
+              <Button
+                clickEvent={() => searchByKeyword(keyword)}
+                key={keyword}
+                btnType="button"
+                className={classes.keyword}
+              >
+                {keyword}
+              </Button>
               <RemoveCircleIcon
                 onClick={() => removeKeyword(keyword)}
                 fontSize="large"
                 className={classes.removeKeyword}
               />
-            </Button>
+            </div>
           ))}
         </article>
       ) : null}

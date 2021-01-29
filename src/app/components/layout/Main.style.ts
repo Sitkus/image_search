@@ -30,12 +30,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     left: '50%',
     transform: 'translateX(-50%)',
     display: 'flex',
-    // flexWrap: 'wrap',
     justifyContent: 'center',
     width: '100%'
   },
+  keywordContainer: {
+    position: 'relative'
+  },
   keyword: {
-    position: 'relative',
     boxShadow: `inset 0 0 0 3px ${theme.palette.secondary.main}`,
     margin: '5px',
     borderRadius: '20px',
@@ -48,11 +49,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   removeKeyword: {
     position: 'absolute',
-    top: '-7px',
-    right: '-7px',
+    top: '-3px',
+    right: '-3px',
     background: 'none',
     color: '#ed4337',
     transition: '150ms all ease-in-out',
+    cursor: 'pointer',
     '&:hover': {
       background: 'none',
       color: theme.palette.primary.main,

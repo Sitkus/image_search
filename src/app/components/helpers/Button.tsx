@@ -1,4 +1,4 @@
-import { ReactNode, MouseEvent } from 'react';
+import { ReactNode } from 'react';
 import useStyles from './Button.style';
 
 interface Props {

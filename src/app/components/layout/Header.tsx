@@ -33,6 +33,7 @@ function Header({
   const inputMinLength = 2;
 
   useEffect(() => {
+    setIsLoading(true);
     fetchPhotos(url);
 
     const keywordsFromLocalStorage: string | null = localStorage.getItem('keywords');
@@ -42,7 +43,7 @@ function Header({
     }
   }, [url]);
 
-  const collectInputData = (e: ChangeEvent<HTMLInputElement>) => {
+  const getInputData = (e: ChangeEvent<HTMLInputElement>) => {
     setInputData(e.target.value);
   };
 
@@ -81,11 +82,10 @@ function Header({
 
   const checkIfInputIsNotEmpty = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const keyword = inputData.trim();
 
-    if (inputData.trim()) {
-      setIsLoading(true);
-
-      setUrl(`https://api.unsplash.com/search/photos?query=${inputData}&per_page=30`);
+    if (keyword) {
+      setUrl(`https://api.unsplash.com/search/photos?query=${keyword}&per_page=30`);
     } else {
       showError();
     }
@@ -126,7 +126,7 @@ function Header({
       <form className={classes.form} onSubmit={checkIfInputIsNotEmpty}>
         <SearchField
           value={inputData}
-          changeEvent={collectInputData}
+          changeEvent={getInputData}
           type="text"
           name="search"
           placeholder="Search for images"

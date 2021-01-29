@@ -1,5 +1,6 @@
 import { useKeywords } from '../../context';
 import useStyles from './KeywordPill.style';
+
 import { Button } from '../helpers';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 

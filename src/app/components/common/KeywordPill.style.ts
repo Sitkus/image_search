@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: '10px',
     fontSize: '14px',
     '&:hover': {
+      background: 'none',
       backgroundColor: 'white',
       color: 'black'
     }
@@ -21,8 +22,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     right: '-3px',
     background: 'none',
     color: '#ed4337',
-    transition: '150ms all ease-in-out',
     cursor: 'pointer',
+    transition: '150ms all ease-in-out',
     '&:hover': {
       background: 'none',
       color: theme.palette.primary.main,

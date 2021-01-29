@@ -9,13 +9,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: '10px 20px',
     cursor: 'pointer',
     transition: '150ms all ease-in-out',
-    '&:hover': {
-      backgroundColor: theme.palette.primary.main,
-      color: 'white',
-      transition: '150ms all ease-in-out'
-    },
     '&:active': {
-      boxShadow: `inset 0 0 0 3px ${theme.palette.secondary.main}`,
+      boxShadow: `inset 0 0 0 3px ${theme.palette.primary.main}`,
       transition: '150ms all ease-in-out'
     }
   }

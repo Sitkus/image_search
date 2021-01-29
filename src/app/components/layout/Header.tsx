@@ -73,9 +73,11 @@ function Header() {
           name="search"
           placeholder="Search for images"
         />
-        <Button btnType="submit">Search</Button>
+        <Button btnType="submit" className={classes.buttonHover}>
+          Search
+        </Button>
         {inputData ? (
-          <Button btnType="button" clickEvent={checkSavedKeywordsLimit}>
+          <Button btnType="button" className={classes.buttonHover} clickEvent={checkSavedKeywordsLimit}>
             Save
           </Button>
         ) : null}

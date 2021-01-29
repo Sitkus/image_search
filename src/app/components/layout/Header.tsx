@@ -1,25 +1,45 @@
-import { FormEvent, ChangeEvent, useState, useEffect } from 'react';
+import { FormEvent, ChangeEvent, useEffect, SetStateAction, Dispatch } from 'react';
 import { usePhotos, useKeywords } from '../../context';
 
 import useStyles from './Header.style';
 import { SearchField, Button } from '../helpers';
 
-function Header() {
+interface Props {
+  inputIsEmpty: boolean;
+  setInputIsEmpty: Dispatch<SetStateAction<boolean>>;
+  inputData: string;
+  setInputData: Dispatch<SetStateAction<string>>;
+  errorMessage: string;
+  setErrorMessage: Dispatch<SetStateAction<string>>;
+  saveKeywordToLocalStorage: (updatedKeywords: string[]) => void;
+}
+
+function Header({
+  inputIsEmpty,
+  setInputIsEmpty,
+  inputData,
+  setInputData,
+  errorMessage,
+  setErrorMessage,
+  saveKeywordToLocalStorage
+}: Props) {
   const classes = useStyles();
 
-  const { authKey, setIsLoading, setPhotos, url } = usePhotos();
+  const { authKey, setIsLoading, setPhotos, url, setUrl } = usePhotos();
   const { savedKeywords, setSavedKeywords } = useKeywords();
 
-  const [inputIsEmpty, setInputIsEmpty] = useState(false);
-  const [inputData, setInputData] = useState('');
-  const [errorMessage, setErrorMessage] = useState('Please fill in the search input field');
-
   const keywordsMaxLimit = 5;
-  const inputMaxLimit = 15;
-  const inputMinLimit = 2;
+  const inputMaxLength = 15;
+  const inputMinLength = 2;
 
   useEffect(() => {
     fetchPhotos(url);
+
+    const keywordsFromLocalStorage: string | null = localStorage.getItem('keywords');
+
+    if (keywordsFromLocalStorage) {
+      setSavedKeywords(JSON.parse(keywordsFromLocalStorage));
+    }
   }, [url]);
 
   const collectInputData = (e: ChangeEvent<HTMLInputElement>) => {
@@ -35,24 +55,27 @@ function Header() {
   };
 
   const checkInputLength = () => {
-    if (inputData.trim().length <= inputMaxLimit && inputData.trim().length >= inputMinLimit) {
+    const keyword = inputData.trim();
+
+    if (keyword.length <= inputMaxLength && keyword.length >= inputMinLength) {
       removeError();
 
-      saveKeyword();
+      saveKeyword(keyword);
     } else {
-      showError(`To save a keyword, it's length has to be between ${inputMinLimit} - ${inputMaxLimit} symbols`);
+      showError(`To save a keyword, it's length has to be between ${inputMinLength} - ${inputMaxLength} symbols`);
     }
   };
 
-  const saveKeyword = () => {
-    const keywordAlreadyExists = savedKeywords.indexOf(inputData.trim());
+  const saveKeyword = (keyword: string) => {
+    const keywordAlreadyExists = savedKeywords.indexOf(keyword);
 
     if (keywordAlreadyExists === -1) {
-      const newSavedKeywords = [...savedKeywords, inputData.trim()];
+      const newSavedKeywords = [...savedKeywords, keyword];
 
+      saveKeywordToLocalStorage(newSavedKeywords);
       setSavedKeywords(newSavedKeywords);
     } else {
-      showError(`You have already saved keyword: ${inputData.trim()}`);
+      showError(`You have already saved keyword: ${keyword}`);
     }
   };
 
@@ -62,7 +85,7 @@ function Header() {
     if (inputData.trim()) {
       setIsLoading(true);
 
-      fetchPhotos(`https://api.unsplash.com/search/photos?query=${inputData}&per_page=30`);
+      setUrl(`https://api.unsplash.com/search/photos?query=${inputData}&per_page=30`);
     } else {
       showError();
     }
@@ -101,7 +124,13 @@ function Header() {
   return (
     <header className={classes.header}>
       <form className={classes.form} onSubmit={checkIfInputIsNotEmpty}>
-        <SearchField collectInputData={collectInputData} type="text" name="search" placeholder="Search for images" />
+        <SearchField
+          value={inputData}
+          changeEvent={collectInputData}
+          type="text"
+          name="search"
+          placeholder="Search for images"
+        />
         <Button btnType="submit">Search</Button>
         {inputData ? (
           <Button btnType="button" clickEvent={checkSavedKeywordsLimit}>

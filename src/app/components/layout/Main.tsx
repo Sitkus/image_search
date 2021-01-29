@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import { usePhotos, useKeywords } from '../../context';
 import useStyles from './Main.style';
 
@@ -5,19 +6,27 @@ import { ImagesList } from '../common';
 import { Button } from '../helpers';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 
-function Main() {
+interface Props {
+  setInputData: Dispatch<SetStateAction<string>>;
+  saveKeywordToLocalStorage: (updatedKeywords: string[]) => void;
+}
+
+function Main({ setInputData, saveKeywordToLocalStorage }: Props) {
   const classes = useStyles();
 
-  const { isLoading, photos, url, setUrl } = usePhotos();
+  const { isLoading, photos, setUrl } = usePhotos();
   const { savedKeywords, setSavedKeywords } = useKeywords();
 
   const searchByKeyword = (keyword: string) => {
+    setInputData(keyword);
+
     setUrl(`https://api.unsplash.com/search/photos?query=${keyword}&per_page=30`);
   };
 
   const removeKeyword = (keyword: string) => {
     const removedKeyword = savedKeywords.filter(item => item !== keyword);
 
+    saveKeywordToLocalStorage(removedKeyword);
     setSavedKeywords(removedKeyword);
   };
 

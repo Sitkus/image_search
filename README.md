@@ -1,4 +1,4 @@
-# Simple Image Search App
+# Simple Images Search App
 
 This project was part of a given task.
 
